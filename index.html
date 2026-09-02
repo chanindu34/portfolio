@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chanindu Dahanayake — ML Engineer & Data Scientist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #0f0f0f;
+            --bg-tertiary: #161616;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #686868;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --border: #1f1f1f;
+            --success: #10b981;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+            animation: gridShift 20s linear infinite;
+        }
+
+        @keyframes gridShift {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 50px 50px;
+            }
+        }
+
+        /* Radial gradient overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: radiusShift 30s ease infinite;
+        }
+
+        @keyframes radiusShift {
+            0%, 100% {
+                top: -50%;
+                right: -50%;
+            }
+            50% {
+                top: -40%;
+                right: -40%;
+            }
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            backdrop-filter: blur(8px);
+            background: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid var(--border);
+            padding: 1.2rem 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+
+        .nav-logo {
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 3rem;
+            margin-top: 60px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            animation: heroFade 0.8s ease-out;
+        }
+
+        @keyframes heroFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            max-width: 700px;
+        }
+
+        .hero-status {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1.2rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 6px;
+            color: var(--success);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-primary);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            border-color: var(--accent-light);
+        }
+
+        /* Projects Section */
+        .section {
+            padding: 6rem 3rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            letter-spacing: -0.01em;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: cardFade 0.6s ease-out backwards;
+        }
+
+        @keyframes cardFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+        .project-card:nth-child(5) { animation-delay: 0.5s; }
+        .project-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .project-card:hover {
+            border-color: var(--accent);
+            background: rgba(15, 15, 15, 0.95);
+            transform: translateY(-4px);
+        }
+
+        .project-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 0.4rem 0.8rem;
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--accent);
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-metrics {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .metric {
+            font-size: 0.85rem;
+        }
+
+        .metric-value {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .metric-label {
+            color: var(--text-tertiary);
+            font-size: 0.8rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 0.3rem 0.7rem;
+            background: rgba(99, 102, 241, 0.08);
+            color: var(--text-secondary);
+            border-radius: 4px;
+            border: 1px solid rgba(99, 102, 241, 0.15);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-links a {
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .project-links a:hover {
+            color: var(--accent-light);
+        }
+
+        /* Technical Arsenal */
+        .arsenal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .arsenal-card {
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            animation: cardFade 0.6s ease-out backwards;
+        }
+
+        .arsenal-card:nth-child(1) { animation-delay: 0.1s; }
+        .arsenal-card:nth-child(2) { animation-delay: 0.2s; }
+        .arsenal-card:nth-child(3) { animation-delay: 0.3s; }
+        .arsenal-card:nth-child(4) { animation-delay: 0.4s; }
+        .arsenal-card:nth-child(5) { animation-delay: 0.5s; }
+        .arsenal-card:nth-child(6) { animation-delay: 0.6s; }
+        .arsenal-card:nth-child(7) { animation-delay: 0.7s; }
+        .arsenal-card:nth-child(8) { animation-delay: 0.8s; }
+
+        .arsenal-card:hover {
+            border-color: var(--accent);
+            background: rgba(15, 15, 15, 0.95);
+        }
+
+        .arsenal-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .arsenal-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .arsenal-items {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Impact Metrics */
+        .metrics-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .metric-card {
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: cardFade 0.6s ease-out backwards;
+        }
+
+        .metric-card:nth-child(1) { animation-delay: 0.1s; }
+        .metric-card:nth-child(2) { animation-delay: 0.2s; }
+        .metric-card:nth-child(3) { animation-delay: 0.3s; }
+        .metric-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .metric-card:hover {
+            border-color: var(--accent);
+            background: rgba(15, 15, 15, 0.95);
+        }
+
+        .metric-card-value {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-card-label {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+        }
+
+        .metric-card-desc {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 4rem 3rem;
+            margin-top: 6rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .footer-left h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-left p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-right {
+            text-align: right;
+        }
+
+        .footer-right h4 {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            padding: 0.9rem 2rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .contact-btn:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+        }
+
+        .footer-info {
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .hero {
+                padding: 0 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-right {
+                text-align: left;
+            }
+        }
+
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-logo">CD</div>
+        <ul class="nav-links">
+            <li><a href="#work">Work</a></li>
+            <li><a href="#arsenal">Stack</a></li>
+            <li><a href="#impact">Impact</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Building production-grade ML systems that move the needle</h1>
+                <p class="hero-subtitle">
+                    Data Scientist & AI Engineer crafting intelligent systems with measurable business impact. Specialized in time series forecasting, statistical testing, and LLM applications.
+                </p>
+                
+                <div class="hero-status">
+                    <div class="status-badge">
+                        <span class="status-dot"></span>
+                        Open to opportunities
+                    </div>
+                    <span style="color: var(--text-tertiary);">Galle, Sri Lanka</span>
+                </div>
+
+                <div class="hero-links">
+                    <a href="#work" class="btn btn-primary">View My Work</a>
+                    <a href="https://github.com/chanindu34" class="btn">GitHub</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="section" id="work">
+            <h2 class="section-title">Selected Work</h2>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <span class="project-badge">Data Science</span>
+                    <h3 class="project-title">USD/LKR Forecasting</h3>
+                    <p class="project-description">
+                        Time series forecasting with production-grade MLflow tracking. Rolling window validation comparing Random Forest vs XGBoost across 16 years of data.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">0.8821</div>
+                            <div class="metric-label">R² Score</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">196</div>
+                            <div class="metric-label">Months</div>
+                        </div>
+                    </div>
+                    <div class="project-tags">
+                        <span class="tag">Time Series</span>
+                        <span class="tag">XGBoost</span>
+                        <span class="tag">MLflow</span>
+                        <span class="tag">sklearn</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/chanindu34/usd-lkr-forecasting">GitHub</a>
+                        <a href="https://github.com/chanindu34/usd-lkr-forecasting">Report</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <span class="project-badge">Data Science</span>
+                    <h3 class="project-title">A/B Testing Analysis</h3>
+                    <p class="project-description">
+                        Rigorous statistical analysis on 588K users. Chi-squared test, Simpson's Paradox detection, and business impact quantification.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">43.1%</div>
+                            <div class="metric-label">Lift</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">p&lt;0.0001</div>
+                            <div class="metric-label">Significance</div>
+                        </div>
+                    </div>
+                    <div class="project-tags">
+                        <span class="tag">Statistics</span>
+                        <span class="tag">A/B Testing</span>
+                        <span class="tag">Chi-Squared</span>
+                        <span class="tag">Visualization</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/chanindu34/ab-testing-analysis">GitHub</a>
+                        <a href="https://github.com/chanindu34/ab-testing-analysis">Report</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <span class="project-badge">AI Engineering</span>
+                    <h3 class="project-title">RAG Business Assistant</h3>
+                    <p class="project-description">
+                        Retrieval Augmented Generation system with function calling. Ingested enterprise documents, deployed on Streamlit Cloud.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">1M+</div>
+                            <div class="metric-label">Tokens</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Live</div>
+                            <div class="metric-label">Production</div>
+                        </div>
+                    </div>
+                    <div class="project-tags">
+                        <span class="tag">LLMs</span>
+                        <span class="tag">Gemini API</span>
+                        <span class="tag">ChromaDB</span>
+                        <span class="tag">Streamlit</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/chanindu34/rag-business-assistant">GitHub</a>
+                        <a href="https://chanindu34-rag-business-assistant-st-2n3vxd.streamlit.app/">Live</a>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <span class="project-badge">AI Engineering</span>
+                    <h3 class="project-title">Tool Calling Agent</h3>
+                    <p class="project-description">
+                        Multi-tool orchestration agent using function calling. Intelligently routes and combines results from search, calculation, and API tools.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">5+</div>
+                            <div class="metric-label">Tools</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Dynamic</div>
+                            <div class="metric-label">Routing</div>
+                        </div>
+                    </div>
+                    <div class="project-tags">
+                        <span class="tag">Function Calling</span>
+                        <span class="tag">LLMs</span>
+                        <span class="tag">Orchestration</span>
+                        <span class="tag">APIs</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/chanindu34/tool-calling-agent">GitHub</a>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card">
+                    <span class="project-badge">Data Science</span>
+                    <h3 class="project-title">Fraud Detection</h3>
+                    <p class="project-description">
+                        Anomaly detection comparing Isolation Forest, LOF, and Autoencoders. Production-ready with precision-recall analysis.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">3</div>
+                            <div class="metric-label">Algorithms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">284K</div>
+                            <div class="metric-label">Transactions</div>
+                        </div>
+                    </div>
+                    <div class="project-tags">
+                        <span class="tag">Anomaly Detection</span>
+                        <span class="tag">Deep Learning</span>
+                        <span class="tag">Autoencoders</span>
+                        <span class="tag">Evaluation</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/chanindu34/Fraud-Detection">GitHub</a>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card">
+                    <span class="project-badge">Data Science</span>
+                    <h3 class="project-title">Country Clustering</h3>
+                    <p class="project-description">
+                        Unsupervised learning with dimensionality reduction. PCA and t-SNE visualization, K-Means and DBSCAN comparison.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">5</div>
+                            <div class="metric-label">Clusters</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">195</div>
+                            <div class="metric-label">Countries</div>
+                        </div>
+                    </div>
+                    <div class="project-tags">
+                        <span class="tag">Clustering</span>
+                        <span class="tag">PCA</span>
+                        <span class="tag">t-SNE</span>
+                        <span class="tag">EDA</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/chanindu34/unsupervised-country-clustering">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Arsenal -->
+        <section class="section" id="arsenal">
+            <h2 class="section-title">Technical Arsenal</h2>
+            <div class="arsenal-grid">
+                <div class="arsenal-card">
+                    <div class="arsenal-icon">📊</div>
+                    <div class="arsenal-title">Machine Learning</div>
+                    <div class="arsenal-items">
+                        XGBoost, Random Forest, Autoencoders, Neural Networks, Scikit-learn
+                    </div>
+                </div>
+
+                <div class="arsenal-card">
+                    <div class="arsenal-icon">📈</div>
+                    <div class="arsenal-title">Data Science</div>
+                    <div class="arsenal-items">
+                        Time Series, A/B Testing, Statistical Analysis, Hypothesis Testing
+                    </div>
+                </div>
+
+                <div class="arsenal-card">
+                    <div class="arsenal-icon">🤖</div>
+                    <div class="arsenal-title">AI / LLMs</div>
+                    <div class="arsenal-items">
+                        Gemini API, LangChain, RAG Systems, Function Calling, Prompting
+                    </div>
+                </div>
+
+                <div class="arsenal-card">
+                    <div class="arsenal-icon">💾</div>
+                    <div class="arsenal-title">Data Infrastructure</div>
+                    <div class="arsenal-items">
+                        SQL, Databases, ChromaDB, Feature Stores, Data Pipelines
+                    </div>
+                </div>
+
+                <div class="arsenal-card">
+                    <div class="arsenal-icon">🛠️</div>
+                    <div class="arsenal-title">ML Engineering</div>
+                    <div class="arsenal-items">
+                        MLflow Tracking, Model Deployment, Production Systems, Monitoring
+                    </div>
+                </div>
+
+                <div class="arsenal-card">
+                    <div class="arsenal-icon">📱</div>
+                    <div class="arsenal-title">Deployment & Ops</div>
+                    <div class="arsenal-items">
+                        Streamlit, FastAPI, Git, GitHub, API Design, Cloud Platforms
+                    </div>
+                </div>
+
+                <div class="arsenal-card">
+                    <div class="arsenal-icon">🔬</div>
+                    <div class="arsenal-title">Experimentation</div>
+                    <div class="arsenal-items">
+                        Experiment Design, Statistical Rigor, A/B Testing, Power Analysis
+                    </div>
+                </div>
+
+                <div class="arsenal-card">
+                    <div class="arsenal-icon">🎯</div>
+                    <div class="arsenal-title">Business Impact</div>
+                    <div class="arsenal-items">
+                        Metrics Definition, ROI Calculation, Product Thinking, Documentation
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Metrics -->
+        <section class="section" id="impact">
+            <h2 class="section-title">Proof Points</h2>
+            <div class="metrics-container">
+                <div class="metric-card">
+                    <div class="metric-card-value">5+</div>
+                    <div class="metric-card-label">Production Projects</div>
+                    <div class="metric-card-desc">End-to-end data science and ML systems deployed</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-card-value">588K</div>
+                    <div class="metric-card-label">Users Tested</div>
+                    <div class="metric-card-desc">Rigorous A/B testing and statistical validation</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-card-value">43%</div>
+                    <div class="metric-card-label">Avg Lift</div>
+                    <div class="metric-card-desc">Measurable business impact across experiments</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-card-value">0.88</div>
+                    <div class="metric-card-label">Best R²</div>
+                    <div class="metric-card-desc">Time series forecasting accuracy benchmark</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-left">
+                <h3>Let's Build Something</h3>
+                <p>
+                    I'm always interested in projects that push technical boundaries and deliver measurable business value. Whether it's building forecasting systems, designing experiments, or deploying AI applications—let's talk.
+                </p>
+                <div class="footer-links">
+                    <a href="https://github.com/chanindu34">GitHub</a>
+                    <a href="https://linkedin.com/in/chanindu">LinkedIn</a>
+                    <a href="https://instagram.com/chanindu34">Instagram</a>
+                </div>
+            </div>
+
+            <div class="footer-right">
+                <h4>Get In Touch</h4>
+                <button class="contact-btn" onclick="location.href='mailto:your.email@gmail.com'">
+                    Send Email
+                </button>
+                <div class="footer-info">
+                    <p>📍 Galle, Sri Lanka</p>
+                    <p>⏱ Available for opportunities</p>
+                    <p style="margin-top: 2rem; opacity: 0.5;">© 2026 Chanindu Dahanayake</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Cursor glow effect (optional premium feature)
+        document.addEventListener('mousemove', (e) => {
+            // This creates a subtle effect if needed
+        });
+    </script>
+</body>
+</html>
