@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chanindu Dahanayake | ML Engineer & Data Scientist</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -21,8 +23,11 @@
             --text-tertiary: #686868;
             --accent: #6366f1;
             --accent-light: #818cf8;
+            --accent-2: #a855f7;
             --border: #1f1f1f;
             --success: #10b981;
+            --mono: 'JetBrains Mono', 'Courier New', monospace;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
         html {
@@ -46,7 +51,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
@@ -56,12 +61,8 @@
         }
 
         @keyframes gridShift {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 50px 50px;
-            }
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
         }
 
         /* Radial gradient overlay */
@@ -79,14 +80,53 @@
         }
 
         @keyframes radiusShift {
-            0%, 100% {
-                top: -50%;
-                right: -50%;
-            }
-            50% {
-                top: -40%;
-                right: -40%;
-            }
+            0%, 100% { top: -50%; right: -50%; }
+            50% { top: -40%; right: -40%; }
+        }
+
+        /* Splash intro */
+        .splash {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, rgba(99, 102, 241, 0.16), var(--bg-primary) 60%);
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .splash.hide {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .splash-inner {
+            text-align: center;
+        }
+
+        .splash-logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            animation: splashPulse 1.4s ease-in-out infinite;
+        }
+
+        .splash-logo span { color: var(--accent); }
+
+        .splash-sub {
+            margin-top: 1rem;
+            color: var(--text-tertiary);
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        @keyframes splashPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.96); }
         }
 
         /* Navbar */
@@ -114,6 +154,8 @@
             text-transform: uppercase;
         }
 
+        .nav-logo span { color: var(--accent); }
+
         .nav-links {
             display: flex;
             gap: 2.5rem;
@@ -140,13 +182,25 @@
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .menu-toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 6px;
             color: var(--text-primary);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+        .menu-toggle:hover { border-color: var(--accent); color: var(--accent-light); }
 
         main {
             position: relative;
@@ -155,7 +209,7 @@
 
         /* Hero Section */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -166,31 +220,76 @@
             margin-left: auto;
             margin-right: auto;
             width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-watermark {
+            position: absolute;
+            top: 8%;
+            left: -3%;
+            font-size: clamp(90px, 18vw, 220px);
+            font-weight: 900;
+            letter-spacing: -0.06em;
+            color: rgba(99, 102, 241, 0.04);
+            pointer-events: none;
+            z-index: 0;
+            user-select: none;
         }
 
         .hero-content {
             max-width: 900px;
             animation: heroFade 0.8s ease-out;
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes heroFade {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .eyebrow {
+            display: block;
+            font-family: var(--mono);
+            color: var(--accent-light);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
         }
 
         .hero h1 {
             font-size: 4.5rem;
             font-weight: 800;
             line-height: 1.1;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             letter-spacing: -0.02em;
         }
+
+        .hero h1 span {
+            display: block;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-type {
+            font-family: var(--mono);
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            min-height: 1.6rem;
+        }
+
+        .hero-type .cursor {
+            color: var(--accent);
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
 
         .hero-subtitle {
             font-size: 1.1rem;
@@ -207,6 +306,7 @@
             gap: 1rem;
             margin-bottom: 3rem;
             font-size: 0.9rem;
+            flex-wrap: wrap;
         }
 
         .status-badge {
@@ -229,12 +329,8 @@
         }
 
         @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .hero-links {
@@ -260,6 +356,7 @@
             border-color: var(--accent);
             color: var(--accent);
             background: rgba(99, 102, 241, 0.05);
+            transform: translateY(-2px);
         }
 
         .btn-primary {
@@ -271,9 +368,44 @@
         .btn-primary:hover {
             background: var(--accent-light);
             border-color: var(--accent-light);
+            color: white;
         }
 
-        /* Projects Section */
+        /* Ticker */
+        .ticker {
+            overflow: hidden;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.015);
+            padding: 1rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ticker-track {
+            display: flex;
+            width: max-content;
+            animation: slideTrack 32s linear infinite;
+        }
+
+        .ticker-track span {
+            padding: 0 2rem;
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .ticker-track span b { color: var(--accent-light); }
+
+        @keyframes slideTrack {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* Sections */
         .section {
             padding: 6rem 3rem;
             max-width: 1400px;
@@ -281,11 +413,22 @@
             margin-right: auto;
         }
 
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
         .section-title {
             font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 3rem;
             letter-spacing: -0.01em;
+            margin-bottom: 0.9rem;
+        }
+
+        .section-bar {
+            width: 56px;
+            height: 4px;
+            border-radius: 99px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
         }
 
         .projects-grid {
@@ -300,19 +443,12 @@
             border-radius: 8px;
             padding: 2rem;
             transition: all 0.3s ease;
-            cursor: pointer;
             animation: cardFade 0.6s ease-out backwards;
         }
 
         @keyframes cardFade {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .project-card:nth-child(1) { animation-delay: 0.1s; }
@@ -361,19 +497,9 @@
             flex-wrap: wrap;
         }
 
-        .metric {
-            font-size: 0.85rem;
-        }
-
-        .metric-value {
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        .metric-label {
-            color: var(--text-tertiary);
-            font-size: 0.8rem;
-        }
+        .metric { font-size: 0.85rem; }
+        .metric-value { color: var(--accent); font-weight: 600; }
+        .metric-label { color: var(--text-tertiary); font-size: 0.8rem; }
 
         .project-tags {
             display: flex;
@@ -394,6 +520,8 @@
         .project-links {
             display: flex;
             gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
         }
 
         .project-links a {
@@ -403,8 +531,75 @@
             transition: color 0.3s ease;
         }
 
-        .project-links a:hover {
+        .project-links a:hover { color: var(--accent-light); }
+
+        .details-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: inherit;
+        }
+
+        .details-btn:hover {
+            border-color: var(--accent);
             color: var(--accent-light);
+            background: rgba(99, 102, 241, 0.06);
+        }
+
+        /* Impact metrics */
+        .metrics-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .metric-card {
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: cardFade 0.6s ease-out backwards;
+        }
+
+        .metric-card:nth-child(1) { animation-delay: 0.1s; }
+        .metric-card:nth-child(2) { animation-delay: 0.2s; }
+        .metric-card:nth-child(3) { animation-delay: 0.3s; }
+        .metric-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .metric-card:hover {
+            border-color: var(--accent);
+            background: rgba(15, 15, 15, 0.95);
+            transform: translateY(-4px);
+        }
+
+        .metric-card-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-card-label {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+        }
+
+        .metric-card-desc {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
         }
 
         /* Technical Arsenal */
@@ -437,181 +632,190 @@
             background: rgba(15, 15, 15, 0.95);
         }
 
-        .arsenal-icon {
-            font-size: 1.8rem;
-            margin-bottom: 0.8rem;
-        }
+        .arsenal-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+        .arsenal-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.8rem; }
+        .arsenal-items { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
 
-        .arsenal-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-        }
-
-        .arsenal-items {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* Impact Metrics */
-        .metrics-container {
+        /* Contact section */
+        .contact-box {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 3rem;
+            align-items: start;
         }
 
-        .metric-card {
+        .contact-left p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            max-width: 560px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .contact-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 1.2rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.25s ease;
+            width: fit-content;
+        }
+
+        .contact-pill .icon { font-size: 1.1rem; }
+
+        .contact-pill:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+            background: rgba(99, 102, 241, 0.06);
+            transform: translateX(4px);
+        }
+
+        .contact-card {
             background: rgba(15, 15, 15, 0.8);
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            animation: cardFade 0.6s ease-out backwards;
         }
 
-        .metric-card:nth-child(1) { animation-delay: 0.1s; }
-        .metric-card:nth-child(2) { animation-delay: 0.2s; }
-        .metric-card:nth-child(3) { animation-delay: 0.3s; }
-        .metric-card:nth-child(4) { animation-delay: 0.4s; }
-
-        .metric-card:hover {
-            border-color: var(--accent);
-            background: rgba(15, 15, 15, 0.95);
-        }
-
-        .metric-card-value {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-
-        .metric-card-label {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.8rem;
-        }
-
-        .metric-card-desc {
+        .contact-card h4 {
             font-size: 0.85rem;
-            color: var(--text-tertiary);
-            line-height: 1.5;
-        }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 4rem 3rem;
-            margin-top: 6rem;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-        }
-
-        .footer-left h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-left p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent);
-        }
-
-        .footer-right {
-            text-align: right;
-        }
-
-        .footer-right h4 {
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            color: var(--text-tertiary);
+            margin-bottom: 1.2rem;
         }
 
-        .contact-btn {
-            display: inline-block;
-            padding: 0.9rem 2rem;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin-bottom: 2rem;
+        .contact-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.7rem;
         }
 
-        .contact-btn:hover {
-            background: var(--accent-light);
-            transform: translateY(-2px);
+        .contact-card p:last-child {
+            margin-bottom: 0;
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+            border-top: 1px solid var(--border);
+            opacity: 0.5;
+            font-size: 0.85rem;
         }
 
-        .footer-info {
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem 3rem;
+            text-align: center;
             color: var(--text-tertiary);
             font-size: 0.85rem;
         }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.25s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-card {
+            width: min(640px, 92vw);
+            max-height: 85vh;
+            overflow-y: auto;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.1rem;
+            right: 1.4rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.8rem;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover { color: var(--accent-light); }
+
+        .modal-card h3 { font-size: 1.7rem; margin-bottom: 1rem; }
+        .modal-card .project-description { font-size: 1rem; margin-bottom: 1.5rem; }
 
         /* Responsive */
         @media (max-width: 768px) {
             nav {
                 padding-left: 1.5rem;
                 padding-right: 1.5rem;
+                backdrop-filter: none;
+                background: var(--bg-primary);
             }
+
+            .menu-toggle { display: flex; }
 
             .nav-links {
-                gap: 1.5rem;
+                position: absolute;
+                top: 100%;
+                left: -1.5rem;
+                width: calc(100% + 3rem);
+                flex-direction: column;
+                gap: 0;
+                background: var(--bg-primary);
+                border-bottom: 1px solid var(--border);
+                display: none;
+                z-index: 101;
             }
 
-            .hero {
-                padding: 0 1.5rem;
+            .nav-links.show { display: flex; }
+
+            .nav-links li { width: 100%; }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem 1.5rem;
             }
 
-            .hero h1 {
-                font-size: 3rem;
-            }
+            .hero { padding: 0 1.5rem; }
+            .hero h1 { font-size: 2.6rem; }
+            .hero-watermark { display: none; }
 
-            .section {
-                padding: 4rem 1.5rem;
-            }
+            .section { padding: 4rem 1.5rem; }
 
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
+            .projects-grid { grid-template-columns: 1fr; }
 
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-right {
-                text-align: left;
-            }
+            .contact-box { grid-template-columns: 1fr; }
         }
 
         /* Scroll reveal animation */
@@ -628,26 +832,38 @@
     </style>
 </head>
 <body>
+    <!-- Splash intro -->
+    <div class="splash" id="splash">
+        <div class="splash-inner">
+            <div class="splash-logo">C<span>D</span></div>
+            <div class="splash-sub">Loading portfolio</div>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav>
-        <div class="nav-logo">CD</div>
-        <ul class="nav-links">
+        <div class="nav-logo">C<span>D</span></div>
+        <ul class="nav-links" id="navLinks">
             <li><a href="#work">Work</a></li>
-            <li><a href="#arsenal">Stack</a></li>
             <li><a href="#impact">Impact</a></li>
+            <li><a href="#arsenal">Stack</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation menu">☰</button>
     </nav>
 
     <main>
         <!-- Hero Section -->
         <section class="hero">
+            <div class="hero-watermark">AI/ML</div>
             <div class="hero-content">
-                <h1>Building production grade ML systems that move the needle</h1>
+                <span class="eyebrow">Data Scientist &amp; AI Engineer</span>
+                <h1>Building production grade<span>ML systems that move the needle</span></h1>
+                <p class="hero-type"><span id="typewriter"></span><span class="cursor">|</span></p>
                 <p class="hero-subtitle">
-                    Data Scientist & AI Engineer crafting intelligent systems with measurable business impact. Specialized in time series forecasting, statistical testing, and LLM applications.
+                    Crafting intelligent systems with measurable business impact. Specialized in time series forecasting, statistical testing, and LLM applications.
                 </p>
-                
+
                 <div class="hero-status">
                     <div class="status-badge">
                         <span class="status-dot"></span>
@@ -663,9 +879,21 @@
             </div>
         </section>
 
+        <!-- Ticker -->
+        <div class="ticker">
+            <div class="ticker-track">
+                <span><b>Python</b> &bull; XGBoost &bull; <b>MLflow</b> &bull; Gemini API &bull; <b>RAG</b> &bull; ChromaDB &bull; <b>Streamlit</b> &bull; SQL &bull; <b>scikit learn</b> &bull; Function Calling &bull;</span>
+                <span><b>Python</b> &bull; XGBoost &bull; <b>MLflow</b> &bull; Gemini API &bull; <b>RAG</b> &bull; ChromaDB &bull; <b>Streamlit</b> &bull; SQL &bull; <b>scikit learn</b> &bull; Function Calling &bull;</span>
+            </div>
+        </div>
+
         <!-- Projects Section -->
-        <section class="section" id="work">
-            <h2 class="section-title">Shipped</h2>
+        <section class="section reveal" id="work">
+            <div class="section-header">
+                <span class="eyebrow">Selected Work</span>
+                <h2 class="section-title">Shipped</h2>
+                <div class="section-bar"></div>
+            </div>
             <div class="projects-grid">
                 <!-- Project 1 -->
                 <div class="project-card">
@@ -692,6 +920,7 @@
                     </div>
                     <div class="project-links">
                         <a href="https://github.com/chanindu34/usd-lkr-forecasting">GitHub</a>
+                        <button class="details-btn" onclick="openProjectModal(0)">View Details</button>
                     </div>
                 </div>
 
@@ -720,6 +949,7 @@
                     </div>
                     <div class="project-links">
                         <a href="https://github.com/chanindu34/ab-testing-analysis">GitHub</a>
+                        <button class="details-btn" onclick="openProjectModal(1)">View Details</button>
                     </div>
                 </div>
 
@@ -749,6 +979,7 @@
                     <div class="project-links">
                         <a href="https://github.com/chanindu34/rag-business-assistant">GitHub</a>
                         <a href="https://rag-business-assistant-pdpsjsuaxzvmaaff8edv3b.streamlit.app/">Live</a>
+                        <button class="details-btn" onclick="openProjectModal(2)">View Details</button>
                     </div>
                 </div>
 
@@ -778,6 +1009,7 @@
                     <div class="project-links">
                         <a href="https://github.com/chanindu34/tool-calling-agent">GitHub</a>
                         <a href="https://business-intelligence-agent-7h3fc6ewvtfnfg6oamjusb.streamlit.app/">Live</a>
+                        <button class="details-btn" onclick="openProjectModal(3)">View Details</button>
                     </div>
                 </div>
 
@@ -806,114 +1038,146 @@
                     </div>
                     <div class="project-links">
                         <a href="https://github.com/chanindu34/Fraud--Detection">GitHub</a>
+                        <button class="details-btn" onclick="openProjectModal(4)">View Details</button>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact -->
+        <section class="section reveal" id="impact">
+            <div class="section-header">
+                <span class="eyebrow">By The Numbers</span>
+                <h2 class="section-title">Impact</h2>
+                <div class="section-bar"></div>
+            </div>
+            <div class="metrics-container">
+                <div class="metric-card">
+                    <div class="metric-card-value">5</div>
+                    <div class="metric-card-label">Projects Shipped</div>
+                    <div class="metric-card-desc">From forecasting models to production AI agents</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-card-value">0.88</div>
+                    <div class="metric-card-label">Best Model R² Score</div>
+                    <div class="metric-card-desc">USD/LKR forecasting model, validated across 196 months</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-card-value">588K+</div>
+                    <div class="metric-card-label">Users Analyzed</div>
+                    <div class="metric-card-desc">In an A/B test that surfaced a 43.1% lift</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-card-value">1M+</div>
+                    <div class="metric-card-label">Tokens Processed</div>
+                    <div class="metric-card-desc">By the RAG business assistant in production</div>
                 </div>
             </div>
         </section>
 
         <!-- Technical Arsenal -->
-        <section class="section" id="arsenal">
-            <h2 class="section-title">Technical Arsenal</h2>
+        <section class="section reveal" id="arsenal">
+            <div class="section-header">
+                <span class="eyebrow">What I Work With</span>
+                <h2 class="section-title">Technical Arsenal</h2>
+                <div class="section-bar"></div>
+            </div>
             <div class="arsenal-grid">
                 <div class="arsenal-card">
                     <div class="arsenal-icon">📊</div>
                     <div class="arsenal-title">Machine Learning</div>
-                    <div class="arsenal-items">
-                        XGBoost, Random Forest, Autoencoders, Neural Networks, Scikit learn
-                    </div>
+                    <div class="arsenal-items">XGBoost, Random Forest, Autoencoders, Neural Networks, Scikit learn</div>
                 </div>
-
                 <div class="arsenal-card">
                     <div class="arsenal-icon">📈</div>
                     <div class="arsenal-title">Data Science</div>
-                    <div class="arsenal-items">
-                        Time Series, A/B Testing, Statistical Analysis, Hypothesis Testing
-                    </div>
+                    <div class="arsenal-items">Time Series, A/B Testing, Statistical Analysis, Hypothesis Testing</div>
                 </div>
-
                 <div class="arsenal-card">
                     <div class="arsenal-icon">🤖</div>
                     <div class="arsenal-title">AI / LLMs</div>
-                    <div class="arsenal-items">
-                        Gemini API, LangChain, RAG Systems, Function Calling, Prompting
-                    </div>
+                    <div class="arsenal-items">Gemini API, LangChain, RAG Systems, Function Calling, Prompting</div>
                 </div>
-
                 <div class="arsenal-card">
                     <div class="arsenal-icon">💾</div>
                     <div class="arsenal-title">Data Infrastructure</div>
-                    <div class="arsenal-items">
-                        SQL, Databases, ChromaDB, Feature Stores, Data Pipelines
-                    </div>
+                    <div class="arsenal-items">SQL, Databases, ChromaDB, Feature Stores, Data Pipelines</div>
                 </div>
-
                 <div class="arsenal-card">
                     <div class="arsenal-icon">🛠️</div>
                     <div class="arsenal-title">ML Engineering</div>
-                    <div class="arsenal-items">
-                        MLflow Tracking, Model Deployment, Production Systems, Monitoring
-                    </div>
+                    <div class="arsenal-items">MLflow Tracking, Model Deployment, Production Systems, Monitoring</div>
                 </div>
-
                 <div class="arsenal-card">
                     <div class="arsenal-icon">📱</div>
-                    <div class="arsenal-title">Deployment & Ops</div>
-                    <div class="arsenal-items">
-                        Streamlit, FastAPI, Git, GitHub, API Design, Netlify
-                    </div>
+                    <div class="arsenal-title">Deployment &amp; Ops</div>
+                    <div class="arsenal-items">Streamlit, FastAPI, Git, GitHub, API Design, Netlify</div>
                 </div>
-
                 <div class="arsenal-card">
                     <div class="arsenal-icon">🔬</div>
                     <div class="arsenal-title">Experimentation</div>
-                    <div class="arsenal-items">
-                        Experiment Design, Statistical Rigor, A/B Testing, Power Analysis
-                    </div>
+                    <div class="arsenal-items">Experiment Design, Statistical Rigor, A/B Testing, Power Analysis</div>
                 </div>
-
                 <div class="arsenal-card">
                     <div class="arsenal-icon">🎯</div>
                     <div class="arsenal-title">Business Impact</div>
-                    <div class="arsenal-items">
-                        Metrics Definition, ROI Calculation, Product Thinking, Documentation
-                    </div>
+                    <div class="arsenal-items">Metrics Definition, ROI Calculation, Product Thinking, Documentation</div>
                 </div>
             </div>
         </section>
 
-
-    </main>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="footer-content">
-            <div class="footer-left">
-                <h3>Let's Build Something</h3>
-                <p>
-                    I'm always interested in projects that push technical boundaries and deliver measurable business value. Whether it's building forecasting systems, designing experiments, or deploying AI applications, let's talk.
-                </p>
-                <div class="footer-links">
-                    <a href="https://github.com/chanindu34">GitHub</a>
-                    <a href="https://linkedin.com/in/chanindu">LinkedIn</a>
-                </div>
+        <!-- Contact -->
+        <section class="section reveal" id="contact">
+            <div class="section-header">
+                <span class="eyebrow">Get In Touch</span>
+                <h2 class="section-title">Let's Build Something</h2>
+                <div class="section-bar"></div>
             </div>
-
-            <div class="footer-right">
-                <h4>Get In Touch</h4>
-                <button class="contact-btn" onclick="location.href='mailto:chanindudaha@gmail.com'">
-                    Send Email
-                </button>
-                <div class="footer-info">
+            <div class="contact-box">
+                <div class="contact-left">
+                    <p>
+                        I'm always interested in projects that push technical boundaries and deliver measurable business value. Whether it's building forecasting systems, designing experiments, or deploying AI applications, let's talk.
+                    </p>
+                    <div class="contact-links">
+                        <a class="contact-pill" href="mailto:chanindudaha@gmail.com">
+                            <span class="icon">✉️</span> chanindudaha@gmail.com
+                        </a>
+                        <a class="contact-pill" href="https://github.com/chanindu34">
+                            <span class="icon">💻</span> github.com/chanindu34
+                        </a>
+                        <a class="contact-pill" href="https://linkedin.com/in/chanindu">
+                            <span class="icon">🔗</span> linkedin.com/in/chanindu
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <h4>Availability</h4>
                     <p>📍 Galle, Sri Lanka</p>
                     <p>⏱ Available for opportunities</p>
-                    <p style="margin-top: 2rem; opacity: 0.5;">© 2026 Chanindu Dahanayake</p>
+                    <p>© 2026 Chanindu Dahanayake</p>
                 </div>
             </div>
-        </div>
+        </section>
+    </main>
+
+    <footer>
+        © 2026 Chanindu Dahanayake. All rights reserved.
     </footer>
 
+    <!-- Project detail modal -->
+    <div class="modal-overlay" id="projectModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeProjectModal()" aria-label="Close">&times;</button>
+            <span class="project-badge" id="modalBadge"></span>
+            <h3 id="modalTitle"></h3>
+            <p class="project-description" id="modalDescription"></p>
+            <div class="project-tags" id="modalTags"></div>
+            <div class="project-links" id="modalLinks"></div>
+        </div>
+    </div>
+
     <script>
-        // Smooth scroll for nav links
+        // Smooth scroll for nav links + close mobile menu on click
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -921,7 +1185,15 @@
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth' });
                 }
+                document.getElementById('navLinks').classList.remove('show');
             });
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
         });
 
         // Scroll reveal animation
@@ -930,7 +1202,7 @@
             rootMargin: '0px 0px -50px 0px'
         };
 
-        const observer = new IntersectionObserver(function(entries) {
+        const observer = new IntersectionObserver(function (entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
@@ -942,9 +1214,117 @@
             observer.observe(el);
         });
 
-        // Cursor glow effect (optional premium feature)
-        document.addEventListener('mousemove', (e) => {
-            // This creates a subtle effect if needed
+        // Splash intro
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('splash').classList.add('hide');
+            }, 700);
+        });
+
+        // Typewriter effect
+        const phrases = [
+            'time series forecasting.',
+            'statistical A/B testing.',
+            'RAG powered assistants.',
+            'tool calling agents.'
+        ];
+        let phraseIndex = 0, charIndex = 0, deleting = false;
+        const typeEl = document.getElementById('typewriter');
+
+        function tick() {
+            const current = phrases[phraseIndex];
+            if (!deleting) {
+                charIndex++;
+                typeEl.textContent = current.slice(0, charIndex);
+                if (charIndex === current.length) {
+                    deleting = true;
+                    setTimeout(tick, 1500);
+                    return;
+                }
+            } else {
+                charIndex--;
+                typeEl.textContent = current.slice(0, charIndex);
+                if (charIndex === 0) {
+                    deleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                }
+            }
+            setTimeout(tick, deleting ? 30 : 60);
+        }
+        tick();
+
+        // Project modal data + logic
+        const projects = [
+            {
+                badge: 'Data Science',
+                title: 'USD/LKR Forecasting',
+                description: 'A production grade time series forecasting pipeline for the USD/LKR exchange rate, with full MLflow experiment tracking. Uses rolling window validation to fairly compare Random Forest against XGBoost across 16 years (196 months) of historical data, reaching an R² of 0.8821 on the windows held out for validation.',
+                tags: ['Time Series', 'XGBoost', 'MLflow', 'sklearn'],
+                links: [{ label: 'GitHub', href: 'https://github.com/chanindu34/usd-lkr-forecasting' }]
+            },
+            {
+                badge: 'Data Science',
+                title: 'A/B Testing Analysis',
+                description: 'A rigorous statistical analysis of an experiment covering 588K users. Includes a Chi squared significance test, detection of Simpson’s Paradox in the segmented data, and a translation of the statistical result (43.1% lift, p<0.0001) into a business impact estimate.',
+                tags: ['Statistics', 'A/B Testing', 'Chi Squared', 'Visualization'],
+                links: [{ label: 'GitHub', href: 'https://github.com/chanindu34/ab-testing-analysis' }]
+            },
+            {
+                badge: 'AI Engineering',
+                title: 'RAG Business Assistant',
+                description: 'A Retrieval Augmented Generation assistant that ingests enterprise documents into ChromaDB and answers questions using the Gemini API with function calling. Deployed live on Streamlit Cloud and has processed over 1M tokens in production use.',
+                tags: ['LLMs', 'Gemini API', 'ChromaDB', 'Streamlit'],
+                links: [
+                    { label: 'GitHub', href: 'https://github.com/chanindu34/rag-business-assistant' },
+                    { label: 'Live', href: 'https://rag-business-assistant-pdpsjsuaxzvmaaff8edv3b.streamlit.app/' }
+                ]
+            },
+            {
+                badge: 'AI Engineering',
+                title: 'Business Intelligent Agent',
+                description: 'A multi tool orchestration agent built with function calling, deployed live on Streamlit Cloud. It intelligently routes a query across 5+ tools (search, calculation, and API tools) and dynamically combines their results into a single business intelligence answer.',
+                tags: ['Function Calling', 'LLMs', 'Orchestration', 'APIs'],
+                links: [
+                    { label: 'GitHub', href: 'https://github.com/chanindu34/tool-calling-agent' },
+                    { label: 'Live', href: 'https://business-intelligence-agent-7h3fc6ewvtfnfg6oamjusb.streamlit.app/' }
+                ]
+            },
+            {
+                badge: 'Data Science',
+                title: 'Fraud Detection',
+                description: 'An anomaly detection system comparing Isolation Forest and Local Outlier Factor (LOF) on 284K real credit card transactions. Model selection was optimized on F1 score, with a full precision recall analysis to understand the tradeoffs at different decision thresholds.',
+                tags: ['Anomaly Detection', 'Isolation Forest', 'LOF', 'Evaluation'],
+                links: [{ label: 'GitHub', href: 'https://github.com/chanindu34/Fraud--Detection' }]
+            }
+        ];
+
+        const modalOverlay = document.getElementById('projectModal');
+        const modalBadge = document.getElementById('modalBadge');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalTags = document.getElementById('modalTags');
+        const modalLinks = document.getElementById('modalLinks');
+
+        function openProjectModal(index) {
+            const p = projects[index];
+            modalBadge.textContent = p.badge;
+            modalTitle.textContent = p.title;
+            modalDescription.textContent = p.description;
+            modalTags.innerHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
+            modalLinks.innerHTML = p.links.map(l => `<a href="${l.href}">${l.label}</a>`).join('');
+            modalOverlay.classList.add('active');
+        }
+
+        function closeProjectModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeProjectModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeProjectModal();
         });
     </script>
 </body>
