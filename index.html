@@ -957,12 +957,12 @@
                     <span class="project-badge">AI Engineering</span>
                     <h3 class="project-title">RAG Business Assistant</h3>
                     <p class="project-description">
-                        Retrieval Augmented Generation system with function calling. Ingested enterprise documents, deployed on Streamlit Cloud.
+                        Retrieval augmented assistant with citation verification over a 612 page annual report, scoped to 740K characters of core narrative content. Independently tested against 10 real questions.
                     </p>
                     <div class="project-metrics">
                         <div class="metric">
-                            <div class="metric-value">1M+</div>
-                            <div class="metric-label">Tokens</div>
+                            <div class="metric-value">9/10</div>
+                            <div class="metric-label">Tested Accuracy</div>
                         </div>
                         <div class="metric">
                             <div class="metric-value">Live</div>
@@ -985,13 +985,13 @@
                 <!-- Project 4 -->
                 <div class="project-card">
                     <span class="project-badge">AI Engineering</span>
-                    <h3 class="project-title">Business Intelligent Agent</h3>
+                    <h3 class="project-title">Business Intelligence Agent</h3>
                     <p class="project-description">
                         Multi tool orchestration agent using function calling. Intelligently routes and combines results from search, calculation, and API tools.
                     </p>
                     <div class="project-metrics">
                         <div class="metric">
-                            <div class="metric-value">5+</div>
+                            <div class="metric-value">2</div>
                             <div class="metric-label">Tools</div>
                         </div>
                         <div class="metric">
@@ -1006,7 +1006,7 @@
                         <span class="tag">APIs</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://github.com/chanindu34/tool-calling-agent">GitHub</a>
+                        <a href="https://github.com/chanindu34/business-intelligence-agent">GitHub</a>
                         <a href="https://business-intelligence-agent-7h3fc6ewvtfnfg6oamjusb.streamlit.app/">Live</a>
                         <button class="details-btn" onclick="openProjectModal(3)">View Details</button>
                     </div>
@@ -1054,7 +1054,7 @@
                 <div class="arsenal-card">
                     <div class="arsenal-icon">📊</div>
                     <div class="arsenal-title">Machine Learning</div>
-                    <div class="arsenal-items">XGBoost, Random Forest, Autoencoders, Neural Networks, Scikit learn</div>
+                    <div class="arsenal-items">XGBoost, Random Forest, Neural Networks, Scikit learn</div>
                 </div>
                 <div class="arsenal-card">
                     <div class="arsenal-icon">📈</div>
@@ -1064,7 +1064,7 @@
                 <div class="arsenal-card">
                     <div class="arsenal-icon">🤖</div>
                     <div class="arsenal-title">AI / LLMs</div>
-                    <div class="arsenal-items">Gemini API, LangChain, RAG Systems, Function Calling, Prompting</div>
+                    <div class="arsenal-items">Gemini API, RAG Systems, Function Calling, Prompting</div>
                 </div>
                 <div class="arsenal-card">
                     <div class="arsenal-icon">💾</div>
@@ -1240,7 +1240,7 @@
             {
                 badge: 'AI Engineering',
                 title: 'RAG Business Assistant',
-                description: 'A Retrieval Augmented Generation assistant that ingests enterprise documents into ChromaDB and answers questions using the Gemini API with function calling. Deployed live on Streamlit Cloud and has processed over 1M tokens in production use.',
+                description: 'A retrieval augmented assistant with citation verification over a 612 page annual report, scoped to 740K characters of core narrative content, embedded into ChromaDB and answering questions using the Gemini API. Deployed live on Streamlit Cloud and independently tested against 10 real questions, achieving 9/10 accuracy with one hallucination transparently identified and documented.',
                 tags: ['LLMs', 'Gemini API', 'ChromaDB', 'Streamlit'],
                 links: [
                     { label: 'GitHub', href: 'https://github.com/chanindu34/rag-business-assistant' },
@@ -1249,11 +1249,11 @@
             },
             {
                 badge: 'AI Engineering',
-                title: 'Business Intelligent Agent',
-                description: 'A multi tool orchestration agent built with function calling, deployed live on Streamlit Cloud. It intelligently routes a query across 5+ tools (search, calculation, and API tools) and dynamically combines their results into a single business intelligence answer.',
+                title: 'Business Intelligence Agent',
+                description: 'A tool calling agent built with function calling, deployed live on Streamlit Cloud. It intelligently routes each question between two tools, document search and a safe AST based calculator, based on question intent, with Pydantic input validation and exponential backoff retry logic for reliability.',
                 tags: ['Function Calling', 'LLMs', 'Orchestration', 'APIs'],
                 links: [
-                    { label: 'GitHub', href: 'https://github.com/chanindu34/tool-calling-agent' },
+                    { label: 'GitHub', href: 'https://github.com/chanindu34/business-intelligence-agent' },
                     { label: 'Live', href: 'https://business-intelligence-agent-7h3fc6ewvtfnfg6oamjusb.streamlit.app/' }
                 ]
             },
