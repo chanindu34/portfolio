@@ -606,9 +606,11 @@
         /* Technical Arsenal */
         .arsenal-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
         }
+        @media (max-width: 1000px) { .arsenal-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 560px)  { .arsenal-grid { grid-template-columns: 1fr; } }
 
         .arsenal-card {
             background: rgba(15, 15, 15, 0.8);
@@ -1084,12 +1086,12 @@
                 <div class="arsenal-card">
                     <div class="arsenal-icon">📊</div>
                     <div class="arsenal-title">Machine Learning</div>
-                    <div class="arsenal-items">XGBoost, Random Forest, Neural Networks, Scikit learn</div>
+                    <div class="arsenal-items">LightGBM, XGBoost, Random Forest, Isolation Forest, Scikit learn, Imbalanced Classification</div>
                 </div>
                 <div class="arsenal-card">
                     <div class="arsenal-icon">📈</div>
-                    <div class="arsenal-title">Data Science</div>
-                    <div class="arsenal-items">Time Series, A/B Testing, Statistical Analysis, Hypothesis Testing</div>
+                    <div class="arsenal-title">Statistics &amp; Experimentation</div>
+                    <div class="arsenal-items">Hypothesis Testing, A/B Testing, Confidence Intervals, Bootstrap, Multiple Testing Correction</div>
                 </div>
                 <div class="arsenal-card">
                     <div class="arsenal-icon">🤖</div>
@@ -1098,13 +1100,18 @@
                 </div>
                 <div class="arsenal-card">
                     <div class="arsenal-icon">💾</div>
-                    <div class="arsenal-title">Data Infrastructure</div>
-                    <div class="arsenal-items">SQL, DuckDB, Star Schema Modeling, ChromaDB, Data Pipelines, Data Quality Testing</div>
+                    <div class="arsenal-title">Data Engineering</div>
+                    <div class="arsenal-items">SQL, DuckDB, Star Schema Modeling, ETL Pipelines, Data Quality Testing, ChromaDB</div>
+                </div>
+                <div class="arsenal-card">
+                    <div class="arsenal-icon">🖥️</div>
+                    <div class="arsenal-title">Visualization &amp; BI</div>
+                    <div class="arsenal-items">Tableau, Interactive Dashboards, What If Parameters, KPI Design, Matplotlib</div>
                 </div>
                 <div class="arsenal-card">
                     <div class="arsenal-icon">🛠️</div>
                     <div class="arsenal-title">ML Engineering</div>
-                    <div class="arsenal-items">MLflow Tracking, Model Deployment, Production Systems, Monitoring</div>
+                    <div class="arsenal-items">MLflow Tracking, Model Deployment, Out of Time Validation, Leakage Checks</div>
                 </div>
                 <div class="arsenal-card">
                     <div class="arsenal-icon">📱</div>
@@ -1112,14 +1119,9 @@
                     <div class="arsenal-items">Streamlit, FastAPI, Docker, Git, GitHub, GitHub Actions (CI), API Design, Netlify</div>
                 </div>
                 <div class="arsenal-card">
-                    <div class="arsenal-icon">🔬</div>
-                    <div class="arsenal-title">Experimentation</div>
-                    <div class="arsenal-items">Experiment Design, Statistical Rigor, A/B Testing, Power Analysis</div>
-                </div>
-                <div class="arsenal-card">
                     <div class="arsenal-icon">🎯</div>
                     <div class="arsenal-title">Business Impact</div>
-                    <div class="arsenal-items">Metrics Definition, ROI Calculation, Product Thinking, Documentation</div>
+                    <div class="arsenal-items">Metrics Definition, Cost Modeling, ROI Calculation, Risk Analytics, Documentation</div>
                 </div>
             </div>
         </section>
