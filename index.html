@@ -457,6 +457,7 @@
         .project-card:nth-child(4) { animation-delay: 0.4s; }
         .project-card:nth-child(5) { animation-delay: 0.5s; }
         .project-card:nth-child(6) { animation-delay: 0.6s; }
+        .project-card:nth-child(7) { animation-delay: 0.7s; }
 
         .project-card:hover {
             border-color: var(--accent);
@@ -881,7 +882,7 @@
         <!-- Ticker -->
         <div class="ticker">
             <div class="ticker-track">
-                <span><b>Python</b> &bull; XGBoost &bull; <b>MLflow</b> &bull; Gemini API &bull; <b>RAG</b> &bull; ChromaDB &bull; <b>Streamlit</b> &bull; SQL &bull; <b>scikit learn</b> &bull; Function Calling &bull; <b>Docker</b> &bull; GitHub Actions &bull;</span>
+                <span><b>Python</b> &bull; <b>Tableau</b> &bull; DuckDB &bull; XGBoost &bull; <b>MLflow</b> &bull; Gemini API &bull; <b>RAG</b> &bull; ChromaDB &bull; <b>Streamlit</b> &bull; SQL &bull; <b>scikit learn</b> &bull; Function Calling &bull; <b>Docker</b> &bull; GitHub Actions &bull;</span>
                 <span><b>Python</b> &bull; XGBoost &bull; <b>MLflow</b> &bull; Gemini API &bull; <b>RAG</b> &bull; ChromaDB &bull; <b>Streamlit</b> &bull; SQL &bull; <b>scikit learn</b> &bull; Function Calling &bull; <b>Docker</b> &bull; GitHub Actions &bull;</span>
             </div>
         </div>
@@ -894,6 +895,35 @@
                 <div class="section-bar"></div>
             </div>
             <div class="projects-grid">
+                <!-- Project 0: AML Transaction Monitoring -->
+                <div class="project-card">
+                    <span class="project-badge">Data Analytics</span>
+                    <h3 class="project-title">AML Transaction Monitoring</h3>
+                    <p class="project-description">
+                        Anti-money laundering analysis on 5.08M transactions. An out-of-time LightGBM model catches 3.1x more laundering accounts than the best rule at the same analyst workload, published as three interactive Tableau dashboards.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">3.1x</div>
+                            <div class="metric-label">vs Best Rule</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">-68%</div>
+                            <div class="metric-label">Cost per Case</div>
+                        </div>
+                    </div>
+                    <div class="project-tags">
+                        <span class="tag">SQL</span>
+                        <span class="tag">DuckDB</span>
+                        <span class="tag">LightGBM</span>
+                        <span class="tag">Tableau</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/chanindu34/aml-monitoring-analytics">GitHub</a>
+                        <a href="https://public.tableau.com/app/profile/chanindu.dahanayake/viz/AMLTransactionMonitoringAnalytics/D1ExecutiveRiskOverview">Dashboards</a>
+                        <button class="details-btn" onclick="openProjectModal(5)">View Details</button>
+                    </div>
+                </div>
                 <!-- Project 1 -->
                 <div class="project-card">
                     <span class="project-badge">Data Science</span>
@@ -1069,7 +1099,7 @@
                 <div class="arsenal-card">
                     <div class="arsenal-icon">💾</div>
                     <div class="arsenal-title">Data Infrastructure</div>
-                    <div class="arsenal-items">SQL, Databases, ChromaDB, Feature Stores, Data Pipelines</div>
+                    <div class="arsenal-items">SQL, DuckDB, Star Schema Modeling, ChromaDB, Data Pipelines, Data Quality Testing</div>
                 </div>
                 <div class="arsenal-card">
                     <div class="arsenal-icon">🛠️</div>
@@ -1263,6 +1293,16 @@
                 description: 'An anomaly detection system comparing Isolation Forest and Local Outlier Factor (LOF) on 284K real credit card transactions. Isolation Forest reached F1 0.259 while LOF failed completely (F1 0.000), a failure diagnosed to the curse of dimensionality in the high dimensional PCA transformed feature space rather than dismissed as a bad run.',
                 tags: ['Anomaly Detection', 'Isolation Forest', 'LOF', 'Evaluation'],
                 links: [{ label: 'GitHub', href: 'https://github.com/chanindu34/Fraud--Detection' }]
+            },
+            {
+                badge: 'Data Analytics',
+                title: 'AML Transaction Monitoring',
+                description: 'An end to end anti-money laundering analysis on 5.08M synthetic bank transactions. The data is modelled as a DuckDB star schema with 18 automated data quality checks, then analysed with confidence intervals and multiple-testing correction to find where laundering concentrates (ACH carries 85% of it at 7.2x the base rate). Six standard monitoring rules were simulated at account level, then compared with an out-of-time LightGBM model at equal alert budgets: the model catches 3.1x more laundering accounts than the best rule (bootstrap 95% CI 2.7x to 3.4x) and cuts analyst cost per case found by 68%. Results are published as three Tableau dashboards, including a what-if tool where you set the team capacity and cost per alert.',
+                tags: ['SQL', 'DuckDB', 'LightGBM', 'Tableau', 'Statistics'],
+                links: [
+                    { label: 'GitHub', href: 'https://github.com/chanindu34/aml-monitoring-analytics' },
+                    { label: 'Dashboards', href: 'https://public.tableau.com/app/profile/chanindu.dahanayake/viz/AMLTransactionMonitoringAnalytics/D1ExecutiveRiskOverview' }
+                ]
             }
         ];
 
